@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+
+*{
+    margin:0px;
+    padding:0px;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+    user-select: none;
+    list-style-type: none;
+}
+
+.init_bac{
+    position:absolute;
+    top:0px;
+    width: 100vw;
+    height: 100vh;
+    z-index:4;
+    backdrop-filter: blur(4px);
+}
+
+.how_to{
+    position:absolute;
+    top:23%;
+    left:23%;
+    z-index: 5;
+    width:50%;
+    height:50%;
+    background-color: rgb(255, 255, 255);
+    border:4px solid #101e7b;
+    border-radius: 12px;
+    border-top-right-radius: 0px;
+    padding:10px;
+    font-size:16px;
+}
+
+.how_to_icon{
+    font-size: 18px;
+    color:#101e7b;
+    backdrop-filter: blur(2px);
+}
+
+.close{
+    position:absolute;
+    right:-2%;
+    top:-4%;
+    background-color: white;
+    border:2px solid #101e7b;
+    border-radius: 24px;
+    padding:8px 13px;
+}
+
+.close:hover{
+    background-color: aliceblue;
+}
+
+.sidebar_container{
+    position:fixed;
+    box-sizing: border-box;
+    top:0vh;
+    width:65px;
+    height:100vh;
+    overflow:hidden;
+    white-space: nowrap;
+    background-color:#070d39;
+    transition: 0.7s ease;
+    color:white;
+    padding:8px;
+    /* box-shadow: 8px 8px 3px #D5D5D5; */
+    border-top-right-radius: 10px;
+    z-index: 3;
+}
+
+.sidebar_container:hover{
+    width:250px;
+    border-right:4px solid whitesmoke;
+
+}
+
+.logo{
+    display:flex;
+}
+
+.logo img{
+    width:49px;
+    height:49px;
+    margin-right:10px;
+}
+
+.logo_name{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 900;
+}
+
+ul li a{
+    text-decoration:none;
+    color:white;
+}
+
+.sidebar_item{
+    padding:10px;
+}
+
+.sidebar_item:hover{
+    background-color:#101e7b;
+    border-left: 5px solid #ffffff;
+    
+}
+
+.li_icon{
+    display:inline-block;
+    width:40px;
+    margin-left:6px;
+    align-items:center;
+    font-weight: bolder;
+}
+
+.algorithm_head{
+    position:fixed;
+    top:0px;
+    display:flex;
+    width:100vw;
+    height:50px;
+    z-index:2;
+    justify-content: center;
+    background-color: #070d39;
+    /* border-top:2px solid #B2F9FC; */
+}
+
+.algorithm_name{
+    font-size:200%;
+    color:white;
+}
+
+.arr_display{
+    border: 2px solid rgb(155, 154, 154);
+    border-radius: 2%;
+    padding: 12px;
+    width: fit-content;
+    background-color: #091353;
+}
+
+.arr_flex{
+    display:flex;
+    margin:auto;
+}
+
+/* Array Related... */
+#arr_container{
+    display:flex;
+    height:87vh;
+    width:82vw;
+    align-items:flex-end;
+    justify-content: center;
+    border-radius: 2px;
+    box-sizing: border-box;
+    border-top-right-radius: 0px;
+    border-bottom: 4px solid rgb(155, 154, 154);
+    background-color: white;
+    padding: 0px 40px;
+    /* box-shadow: 10px 10px 16px #888787; */
+
+}
+
+.arr_element{
+    width:4.5%;
+    margin-right:3px;
+    box-shadow: 1px 0px 10px #888787;
+    background-color: #B2F9FC;
+    border:1px solid black;
+    height:2px;
+    transition: height 0.9s ease, background-color 0.2s ease;
+}
+
+.arr_controls{
+    white-space: nowrap;
+    box-sizing: content-box;
+    width:40px;
+    height:44px;
+    overflow: hidden;
+    transition: 0.5s ease;
+    border-right:2px  solid rgb(155, 154, 154);
+    border-bottom:2px  solid rgb(155, 154, 154);
+    z-index:1;
+    background-color: white;
+    cursor:pointer;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+}
+
+.arr_controls:hover{
+    width:160px;
+    height:269px;
+}
+
+.arr_controls_icon{
+    padding:10px;
+}
+
+.arr_controls_icon{
+    font-size: 25px;
+    display:inline-block;
+    width:50px;
+    color:#101e7b;
+}
+
+.arr_controls_item:hover{
+    border-left:7px solid #101e7b;
+    border-top-left-radius: 8%;
+    border-bottom-left-radius: 8%;
+}
+
+main{
+    position :relative;
+    margin: 60px 0px 0px 75px;
+}
+
+.usr_guide_display{
+    position:absolute;
+    top:16px;
+    left:16px;
+    z-index: 2;
+    border:2px solid #101e7b;
+    border-radius: 5px;
+    width:fit-content;
+}
+
+.select, .bubble{
+    padding:7px;
+    display:none;
+}
+
+.empha{
+    color:#101e7b;
+}
