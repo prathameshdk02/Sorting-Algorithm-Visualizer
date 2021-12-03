@@ -24,7 +24,7 @@
     left:23%;
     z-index: 5;
     width:50%;
-    height:50%;
+    height:fit-content;
     background-color: rgb(255, 255, 255);
     border:4px solid #101e7b;
     border-radius: 12px;
