@@ -12,6 +12,7 @@
 .init_bac{
     position:absolute;
     top:0px;
+    left:0px;
     width: 100vw;
     height: 100vh;
     z-index:4;
@@ -36,7 +37,6 @@
 .how_to_icon{
     font-size: 18px;
     color:#101e7b;
-    backdrop-filter: blur(2px);
 }
 
 .close{
@@ -72,8 +72,6 @@
 
 .sidebar_container:hover{
     width:250px;
-    border-right:4px solid whitesmoke;
-
 }
 
 .logo{
