@@ -1,6 +1,6 @@
 //Global Variables
 let isDrawn = false;
-let arrCount = 20;
+let arrCount = 16;
 let currentSidebarItem = null;
 let currentClearState = false;       //This too seems useless, could have used isDrawn for the same
 let currentExecutionState = true;
@@ -9,6 +9,7 @@ let slowDownRate = 0;
 // Constant References
 const ac = document.getElementById("arr_container");
 const arr = document.getElementsByClassName("arr_element");
+const cd = document.querySelector(".code_disp_outer");
 
 if(!currentClearState){
     let head = document.createElement("h3");
@@ -123,6 +124,7 @@ function sort_now(){
     switch(currentSidebarItem){
         case `select`:
             selection_sort();
+            cd.style.transform = `translate(-335px)`;
             break;
 
         case `bubble`:

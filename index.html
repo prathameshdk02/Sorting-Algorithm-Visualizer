@@ -111,8 +111,16 @@
         </div>
 
         <!-- Code Display -->
-        <div class="code_disp_container">
-            
+        <div class="code_disp_outer">
+            <div class="code_disp_container">
+                <!-- Selection Sort -->
+                <pre class="code_disp_line">    for( i=0; i&lt;n-1; i++ )</pre>
+                <pre class="code_disp_line">        min = i</pre>
+                <pre class="code_disp_line">        for( j=i+1; j&lt;n; j++ )</pre>
+                <pre class="code_disp_line">            if( arr[min] > arr[j] )</pre>
+                <pre class="code_disp_line">                min = j </pre>
+                <pre class="code_disp_line">        swap( arr[min], arr[i] )</pre>   
+            </div>
         </div>
     </main>
     <script src="js/script.js"></script>
