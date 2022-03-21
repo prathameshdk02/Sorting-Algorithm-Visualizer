@@ -10,7 +10,7 @@
 }
 
 div{
-    border: 0px solid red;
+    /* border: 1px solid red; */
 }
 
 body{
@@ -178,7 +178,7 @@ ul li a{
     background-color: #B2F9FC;
     border:1px solid black;
     height:2px;
-    transition: height 0.9s ease, background-color 0.2s ease;
+    transition: all 0.9s ease,height 0.9s ease, background-color 0.2s ease;
 }
 
 .arr_controls{
@@ -203,13 +203,10 @@ ul li a{
 }
 
 .arr_controls_icon{
-    padding:10px;
-}
-
-.arr_controls_icon{
     font-size: 25px;
     display:inline-block;
     width:50px;
+    padding:10px;
     color:#101e7b;
 }
 
@@ -252,7 +249,7 @@ main{
     z-index:2;
     right:-320px;
     bottom:12px;
-    background-color:#101e7b;
+    background-color:#091353;
     border-radius:10px;
     transition: all 1.5s ease;
     padding:3px;
@@ -263,4 +260,26 @@ main{
     margin:6px;
     padding:5px;
     background-color:white;
+}
+
+/* CSS for Stats Display */
+.stats_disp_outer{
+    position:absolute;
+    z-index:-1;
+    background-color: #091353;
+    width:200px;
+    top:12px;
+    right:5px;
+    padding:3px;
+    border-radius: 5px;
+    /* display:none; */
+}
+
+.stats_disp_container{
+    background-color: white;
+}
+
+.stats_line{
+    display:inline-block;
+
 }

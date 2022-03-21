@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to Font Awesome - Icons -->
+    <script src="https://kit.fontawesome.com/1bdbec0da6.js" crossorigin="anonymous"></script>
     <!-- Link to CSS File -->
     <link rel="stylesheet" href="css/style.css">
     <!-- Link to Favicon -->
     <link rel="icon" href="res/Favicon.png">
-    <!-- Link to Font Awesome - Icons -->
-    <script src="https://kit.fontawesome.com/1bdbec0da6.js" crossorigin="anonymous"></script>
     <title>Algorithm Visualizer - Visualize like a Pro</title>
 </head>
 
@@ -112,14 +112,25 @@
 
         <!-- Code Display -->
         <div class="code_disp_outer">
-            <div class="code_disp_container">
-                <!-- Selection Sort -->
-                <pre class="code_disp_line">    for( i=0; i&lt;n-1; i++ )</pre>
-                <pre class="code_disp_line">        min = i</pre>
-                <pre class="code_disp_line">        for( j=i+1; j&lt;n; j++ )</pre>
-                <pre class="code_disp_line">            if( arr[min] > arr[j] )</pre>
-                <pre class="code_disp_line">                min = j </pre>
-                <pre class="code_disp_line">        swap( arr[min], arr[i] )</pre>   
+            <div class="code_disp_container"></div>
+        </div>
+
+        <!-- Stats Display -->
+        <div class="stats_disp_outer">
+            <!-- <div class="stats_disp_info">
+                <p>Stats</p>
+            </div> -->
+            <div class="stats_disp_container">
+                <ul class="stats_disp_list">
+                    <li class="stats_line"><i class="fa-solid fa-signal arr_controls_icon"></i>Elements:
+                        <span id="stats_elements">0</span></li>
+                    <li class="stats_line"><i class="fa-solid fa-repeat arr_controls_icon"></i>Iterations:
+                        <span id="stats_iterations">0</span></li>
+                    <li class="stats_line"><i class="fa-solid fa-shuffle arr_controls_icon"></i>Swaps:
+                        <span id="stats_swaps">0</span></li>
+                    <li class="stats_line"><i class="fa-solid fa-rocket arr_controls_icon"></i>Delay:
+                        <span id="stats_speed">0</span><span>ms</span></li>
+                </ul>
             </div>
         </div>
     </main>
