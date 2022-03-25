@@ -35,6 +35,9 @@ function setTitle(title){
 
 // Generates delay for specified millisecs
 function delay(ms){
+    if(ms<0){
+        ms = 0;
+    }
     return new Promise((resolve) =>{
         setTimeout(()=>{
             resolve();
@@ -138,6 +141,13 @@ function setSelection(algo){
     }else{
         document.querySelector(".bubble").style.display = "none";
     }
+
+    if(algo=="insert"){
+        setTitle(`Insertion Sort`);
+        // document.querySelector(".bubble").style.display = "block";
+    }else{
+        // document.querySelector(".bubble").style.display = "none";
+    }
 }
 
 
@@ -155,6 +165,12 @@ async function sort_now(){
             await delay(2000);
             bubble_sort();
             break;
+
+        case `insert`:
+            cd.style.transform = `translate(-${cdOffset})`;
+            await delay(2000);
+            insertion_sort();
+            break;  
     }
 }
 
@@ -196,6 +212,7 @@ function help_me(){
 // Function for performing Selecion Sort - pretty obvious...
 async function selection_sort(desc){
     let prevColor = arr[0].style.backgroundColor;
+    let iter = parseInt(stats_iterations.innerText);
     for(let i=0;i<arr.length;i++){
         ssCL[0].style.backgroundColor= `#B2F9FC`;
         await delay(200);
@@ -209,7 +226,6 @@ async function selection_sort(desc){
         ssCL[1].style.backgroundColor= `#ffffff`;             
         
         for(let j=i+1;j<arr.length;j++){
-            let iter = parseInt(stats_iterations.innerText);
             stats_iterations.innerText = `${++iter}`;
             ssCL[2].style.backgroundColor= `#B2F9FC`;
             await delay(100+slowDownRate);
@@ -257,6 +273,7 @@ async function selection_sort(desc){
             cd.style.transform = `translate(${cdOffset})`;
             return;
         }
+        stats_iterations.innerText = `${++iter}`;
     }
     cd.style.transform = `translate(${cdOffset})`;
     return;
@@ -265,13 +282,13 @@ async function selection_sort(desc){
 // Function for performing Bubble Sort - too obvious...
 async function bubble_sort(){
     let prevColor = arr[0].style.backgroundColor;
+    let iter = parseInt(stats_iterations.innerText);
 
     for(let i=0;i<arrCount-1;i++){
         ssCL[0].style.backgroundColor= `#B2F9FC`;
         await delay(200+slowDownRate);
         ssCL[0].style.backgroundColor= `#ffffff`;
         for(let j=0;j<arrCount-i-1;j++){
-            let iter = parseInt(stats_iterations.innerText);
             stats_iterations.innerText = `${++iter}`;
             let wasSwapped = false;
             arr[j].style.backgroundColor = `#a778ce`;
@@ -281,7 +298,7 @@ async function bubble_sort(){
             ssCL[1].style.backgroundColor= `#ffffff`;
 
             ssCL[2].style.backgroundColor= `#B2F9FC`;
-            await delay(100);
+            await delay(50);
             ssCL[2].style.backgroundColor= `#ffffff`;
 
             ssCL[3].style.backgroundColor= `#B2F9FC`;
@@ -315,6 +332,7 @@ async function bubble_sort(){
                 break;
             }
         }
+        stats_iterations.innerText = `${++iter}`;
         if(!currentExecutionState){
             cd.style.transform = `translate(${cdOffset})`;
             return;
@@ -322,6 +340,29 @@ async function bubble_sort(){
     }
     cd.style.transform = `translate(${cdOffset})`;
     return;
+}
+
+async function insertion_sort(){
+    let key,j;
+    let prevColor = arr[0].style.backgroundColor;
+    for(let i=1;i<arrCount;i++){
+        key = Number(arr[i].innerText);
+        j = i-1;
+        await delay(50+slowDownRate);
+        while(j>=0 && Number(arr[j].innerText)>key){
+            arr[j].style.backgroundColor = `#a778ce`;
+            arr[j+1].innerText = arr[j].innerText;
+            arr[j+1].style.height = `${Number(arr[j].innerText)-5}%`;
+            await delay(150+slowDownRate);
+            arr[j].style.backgroundColor = prevColor;
+            j--;
+        }
+        arr[j+1].innerText = key;
+        arr[j+1].style.backgroundColor = `#40db62`;
+        arr[j+1].style.height = `${key-5}%`;
+        await delay(300+slowDownRate);
+        arr[j+1].style.backgroundColor = prevColor;
+    }
 }
 
 const selectArr = [
@@ -367,6 +408,7 @@ function addContentCodeDisp(algo){
 let sidebarItems = document.querySelectorAll('.sidebar_item');
 sidebarItems[0].setAttribute('onclick','setSelection(`select`)');
 sidebarItems[1].setAttribute('onclick','setSelection(`bubble`)');
+sidebarItems[2].setAttribute('onclick','setSelection(`insert`)');
 
 /*Adding Onclick listener to each Button in Controls menu*/
 const controls = document.querySelectorAll('.arr_controls_item');
