@@ -10,7 +10,7 @@
 }
 
 div{
-    /* border: 1px solid red; */
+    border: 0px solid red;
 }
 
 body{
@@ -267,7 +267,7 @@ main{
     position:absolute;
     z-index:-1;
     background-color: #091353;
-    width:200px;
+    width:220px;
     top:12px;
     right:5px;
     padding:3px;
