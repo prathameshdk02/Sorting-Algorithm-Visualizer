@@ -11,7 +11,7 @@
 }
 
 div{
-    border: 0px solid red;
+    border: 1px solid red;
 }
 
 body{
@@ -233,7 +233,7 @@ main{
     width:fit-content;
 }
 
-.select, .bubble{
+.select, .bubble, .insert{
     padding:7px;
     display:none;
 }

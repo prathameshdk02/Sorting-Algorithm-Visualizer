@@ -345,24 +345,61 @@ async function bubble_sort(){
 async function insertion_sort(){
     let key,j;
     let prevColor = arr[0].style.backgroundColor;
+    let iter = 0;
+    let swaps = 0;
     for(let i=1;i<arrCount;i++){
+        ssCL[0].style.backgroundColor = `#B2F9FC`;
+        await delay(100+slowDownRate)
+        ssCL[0].style.backgroundColor = `#ffffff`;
+        ssCL[1].style.backgroundColor = `#B2F9FC`;
         key = Number(arr[i].innerText);
+        await delay(50+slowDownRate)
+        ssCL[1].style.backgroundColor = `#ffffff`;
+        ssCL[2].style.backgroundColor = `#B2F9FC`;
         j = i-1;
+        await delay(50+slowDownRate)
+        ssCL[2].style.backgroundColor = `#ffffff`;
         await delay(50+slowDownRate);
         while(j>=0 && Number(arr[j].innerText)>key){
-            arr[j].style.backgroundColor = `#a778ce`;
+            stats_iterations.innerText = `${++iter}`;
+            stats_swaps.innerText = `${++swaps}`;
+            ssCL[3].style.backgroundColor = `#B2F9FC`;
+            await delay(50+slowDownRate);
+            ssCL[3].style.backgroundColor = `#ffffff`;
+            ssCL[4].style.backgroundColor = `#fc9255`;
+            await delay(50+slowDownRate);
+            arr[j+1].style.backgroundColor = `#fc9255`;
             arr[j+1].innerText = arr[j].innerText;
             arr[j+1].style.height = `${Number(arr[j].innerText)-5}%`;
+            ssCL[4].style.backgroundColor = `#ffffff`;
+            arr[j].style.backgroundColor = `#a778ce`;
             await delay(150+slowDownRate);
+            arr[j+1].style.backgroundColor = prevColor;
             arr[j].style.backgroundColor = prevColor;
+            ssCL[5].style.backgroundColor = `#a778ce`;
             j--;
+            await delay(50+slowDownRate);
+            ssCL[5].style.backgroundColor = `#ffffff`;
+            if(!currentExecutionState){
+                break;
+            }
         }
+        ssCL[6].style.backgroundColor = `#40db62`;
+        stats_swaps.innerText = `${++swaps}`;
         arr[j+1].innerText = key;
         arr[j+1].style.backgroundColor = `#40db62`;
         arr[j+1].style.height = `${key-5}%`;
         await delay(300+slowDownRate);
+        ssCL[6].style.backgroundColor = `#ffffff`;
         arr[j+1].style.backgroundColor = prevColor;
+        stats_iterations.innerText = `${++iter}`;
+        if(!currentExecutionState){
+            cd.style.transform = `translate(${cdOffset})`;
+            return;
+        }
     }
+    cd.style.transform = `translate(${cdOffset})`;
+    return;
 }
 
 const selectArr = [
@@ -381,6 +418,14 @@ const bubbleArr = [
     `            if( current > next )`,
     `                swap( arr[j], arr[j+1] )`]
 
+const insertArr = [
+    `   for( i = 1; i < n; i++ )`,
+    `       j = i-1`,
+    `       key = arr[i]`,
+    `       while( j >= 0 and arr[j] > key )`,
+    `           arr[j+1] = arr[j]`,
+    `           j -= 1`,
+    `       arr[j+1] = key`]
 
 
 function addContentCodeDisp(algo){
@@ -399,6 +444,13 @@ function addContentCodeDisp(algo){
             let pree = document.createElement("pre");
             pree.className = `code_disp_line`;
             pree.innerText = bubbleArr[i];
+            cdc.appendChild(pree);
+        }
+    }else if(algo=='insert'){
+        for(let i=0;i<insertArr.length;i++){
+            let pree = document.createElement("pre");
+            pree.className = `code_disp_line`;
+            pree.innerText = insertArr[i];
             cdc.appendChild(pree);
         }
     }
