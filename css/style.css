@@ -10,9 +10,9 @@
     list-style-type: none;
 }
 
-div{
+/* div{
     border: 1px solid red;
-}
+} */
 
 body{
     overflow:hidden;
@@ -246,10 +246,10 @@ main{
 .code_disp_outer{
     position:absolute;
     float:right;
-    width:320px;
+    width:340px;
     font-size:1.2rem;
     z-index:2;
-    right:-320px;
+    right:-340px;
     bottom:12px;
     background-color:#091353;
     border-radius:10px;

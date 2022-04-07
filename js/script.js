@@ -5,7 +5,7 @@ let currentSidebarItem = null;
 let currentClearState = false;       //This too seems useless, could have used isDrawn for the same
 let currentExecutionState = true;
 let slowDownRate = 0;
-let cdOffset = `335px`;
+let cdOffset = `355px`;
 
 // Constant References
 const ac = document.getElementById("arr_container");
@@ -60,9 +60,12 @@ function randomGen(){
     let val = Math.floor((Math.random()*90)+1);
     //Increments lower values by 10
     if(val>5 && val<=10){
-        val+=5;
+        val+=Math.floor((Math.random()*80)+1);
     }
     if(val>=0 && val<=5){
+        val+=Math.floor((Math.random()*80)+1);
+    }
+    if(val>=0 && val<=10){
         val+=10;
     }
     return val;
@@ -123,32 +126,39 @@ async function stats_handler(){
 // Selects an specific algorithm when selected from the Sidebar, Also controls the Display of Index for Both Algorithms
 function setSelection(algo){
     currentSidebarItem = algo;
-    stats_handler();
     clearContainerText();
     randomizeArray();
     addContentCodeDisp(algo);
-    slowDownRate = 0;
-
+    
     if(algo=="select"){
         setTitle(`Selection Sort`);
+        slowDownRate = -50;
         document.querySelector(".select").style.display = "block";
     }else{
         document.querySelector(".select").style.display = "none";
     }
-
+    
     if(algo=="bubble"){
         setTitle(`Bubble Sort`);
+        slowDownRate = 50;
         document.querySelector(".bubble").style.display = "block";
     }else{
         document.querySelector(".bubble").style.display = "none";
     }
-
+    
     if(algo=="insert"){
         setTitle(`Insertion Sort`);
+        slowDownRate = 30;
         // document.querySelector(".bubble").style.display = "block";
     }else{
         // document.querySelector(".bubble").style.display = "none";
     }
+    
+    if(algo=="merge"){
+        setTitle(`Merge Sort`);
+        slowDownRate = 20;
+    }
+    stats_handler();
 }
 
 
@@ -182,7 +192,7 @@ async function stop_exe(){
     if(currentExecutionState){
         currentExecutionState = false;
     }
-    await delay(1000);
+    await delay(2000);
     currentExecutionState = true;
     stats_handler();
 }
@@ -295,7 +305,7 @@ async function bubble_sort(){
             arr[j].style.backgroundColor = `#a778ce`;
 
             ssCL[1].style.backgroundColor= `#B2F9FC`;
-            await delay(200+slowDownRate);
+            await delay(100+slowDownRate);
             ssCL[1].style.backgroundColor= `#ffffff`;
 
             ssCL[2].style.backgroundColor= `#B2F9FC`;
@@ -303,11 +313,11 @@ async function bubble_sort(){
             ssCL[2].style.backgroundColor= `#ffffff`;
 
             ssCL[3].style.backgroundColor= `#B2F9FC`;
-            await delay(100+slowDownRate);
+            await delay(50+slowDownRate);
             ssCL[3].style.backgroundColor= `#ffffff`;
             
             ssCL[4].style.backgroundColor= `#B2F9FC`;
-            await delay(200+slowDownRate);
+            await delay(100+slowDownRate);
             ssCL[4].style.backgroundColor= `#ffffff`;
             if(Number(arr[j].innerHTML)>arr[j+1].innerHTML){
                 ssCL[5].style.backgroundColor= `#40db62`;
@@ -318,14 +328,14 @@ async function bubble_sort(){
                 let temp = arr[j].innerHTML;
                 arr[j].innerHTML = arr[j+1].innerHTML;
                 arr[j+1].innerHTML = temp;
-                await delay(500+slowDownRate);
+                await delay(200+slowDownRate);
                 arr[j].style.height = `${Number(arr[j].innerHTML)-5}%`;
                 arr[j+1].style.height = `${Number(arr[j+1].innerHTML)-5}%`;
                 wasSwapped = true;
                 ssCL[5].style.backgroundColor= `#ffffff`;
             }
             if(wasSwapped){
-                await delay(400+slowDownRate);
+                await delay(300+slowDownRate);
             }
             arr[j].style.backgroundColor = prevColor;
             arr[j+1].style.backgroundColor = prevColor;
@@ -403,20 +413,13 @@ async function insertion_sort(){
     return;
 }
 
-function merge_sort(s,e){
-    if(s>=e){
-        return;
-    }
-    let mid = parseInt((s+e)/2);
-    merge_sort(s,mid);
-    merge_sort(mid+1,e);
-
-    //Merge code...
+async function merge(s,e,mid){
     let i = s;
     let j = mid+1;
     let k = s;
     const temp = new Array(e+2);
 
+    ssCL[6].style.backgroundColor = `#fc9255`;
     while(i<=mid && j<=e){
         arr[i].style.backgroundColor = `#fc9255`;       //Orange color..
         arr[j].style.backgroundColor = `#fc9255`;
@@ -431,13 +434,18 @@ function merge_sort(s,e){
             j++;
             k++;
         }
+
         if(elemI<=elemJ){
+            await delay(220+slowDownRate);
             arr[i-1].style.backgroundColor = `#B2F9FC`;       //Prev color..
-            console.log(j)
             arr[j].style.backgroundColor = `#B2F9FC`;
         }else{
+            await delay(220+slowDownRate);
             arr[i].style.backgroundColor = `#B2F9FC`;       //Prev color..
             arr[j-1].style.backgroundColor = `#B2F9FC`;
+        }
+        if(!currentExecutionState){
+            return;
         }
     }
 
@@ -449,11 +457,76 @@ function merge_sort(s,e){
         temp[k++] = Number(arr[j++].innerText);
     }
 
+    ssCL[6].style.backgroundColor = `#ffffff`;
+
+    if(!currentExecutionState){
+        return;
+    }
+
+    ssCL[6].style.backgroundColor = `#40db62`;
     for(let m=s;m<=e;m++){
         arr[m].style.backgroundColor = `#40db62`;
+        await delay(200+slowDownRate);
         arr[m].innerText = `${temp[m]}`;
         arr[m].style.height = `${temp[m]-5}%`;
-        arr[m].style.backgroundColor = `#B2F9FC`; 
+        arr[m].style.backgroundColor = `#B2F9FC`;
+        if(!currentExecutionState){
+            break;
+        } 
+    }
+    ssCL[6].style.backgroundColor = `#ffffff`;
+    if(!currentExecutionState){
+        return;
+    }
+}
+
+async function merge_sort(s,e){
+    if(!currentExecutionState){
+        cd.style.transform = `translate(${cdOffset})`;
+        return;
+    }
+    ssCL[0].style.backgroundColor = `#B2F9FC`;
+    await delay(50);
+    ssCL[0].style.backgroundColor = `#ffffff`;
+
+    ssCL[1].style.backgroundColor = `#B2F9FC`;
+    await delay(50);
+    ssCL[1].style.backgroundColor = `#ffffff`;
+
+    if(s>=e){
+        ssCL[2].style.backgroundColor = `#fc9255`;
+        await delay(300+slowDownRate);
+        ssCL[2].style.backgroundColor = `#ffffff`;
+        return;
+    }
+
+    ssCL[3].style.backgroundColor = `#B2F9FC`;
+    await delay(100+slowDownRate);
+    let mid = parseInt((s+e)/2);
+    ssCL[3].style.backgroundColor = `#ffffff`;
+
+    ssCL[4].style.backgroundColor = `#B2F9FC`;
+    await delay(100+slowDownRate);
+    ssCL[4].style.backgroundColor = `#ffffff`;
+    await merge_sort(s,mid);
+
+    ssCL[5].style.backgroundColor = `#B2F9FC`;
+    await delay(100+slowDownRate);
+    ssCL[5].style.backgroundColor = `#ffffff`;
+    await merge_sort(mid+1,e);
+    
+    ssCL[6].style.backgroundColor = `#B2F9FC`;
+    await delay(400);
+
+    if(!currentExecutionState){
+        cd.style.transform = `translate(${cdOffset})`;
+        return;
+    }
+    await merge(s,e,mid);
+    ssCL[6].style.backgroundColor = `#ffffff`;
+
+    if(s==0 && e==arrCount-1){
+        cd.style.transform = `translate(${cdOffset})`;
     }
     return;
 }
@@ -482,7 +555,17 @@ const insertArr = [
     `       while( j >= 0 and arr[j] > key )`,
     `           arr[j+1] = arr[j]`,
     `           j -= 1`,
-    `       arr[j+1] = key`]
+    `       arr[j+1] = key`
+]
+
+const mergeArr = [
+    `   function mergeSort(start,end):`,
+    `        if(start >= end):`,
+    `            return`,
+    `        mid = (int)(start + end)/2`,
+    `        mergeSort(start,mid)`,
+    `        mergeSort(mid+1,end)`,
+    `        compare&Merge(start,end)`]
 
 
 function addContentCodeDisp(algo){
@@ -508,6 +591,13 @@ function addContentCodeDisp(algo){
             let pree = document.createElement("pre");
             pree.className = `code_disp_line`;
             pree.innerText = insertArr[i];
+            cdc.appendChild(pree);
+        }
+    }else if(algo=='merge'){
+        for(let i=0;i<mergeArr.length;i++){
+            let pree = document.createElement("pre");
+            pree.className = `code_disp_line`;
+            pree.innerText = mergeArr[i];
             cdc.appendChild(pree);
         }
     }
