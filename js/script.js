@@ -41,6 +41,7 @@ function delay(ms){
     return new Promise((resolve) =>{
         setTimeout(()=>{
             resolve();
+            // console.log("Waiting now...")
         },ms);
     });
 }
@@ -153,24 +154,24 @@ function setSelection(algo){
 
 // Runs whenever Play Button is Pressed - Executes the algorithm selected from the SideBar...
 async function sort_now(){
+    cd.style.transform = `translate(-${cdOffset})`;
+    await delay(2000);
     switch(currentSidebarItem){
         case `select`:
-            cd.style.transform = `translate(-${cdOffset})`;
-            await delay(2000);
             selection_sort();
             break;
 
         case `bubble`:
-            cd.style.transform = `translate(-${cdOffset})`;
-            await delay(2000);
             bubble_sort();
             break;
 
         case `insert`:
-            cd.style.transform = `translate(-${cdOffset})`;
-            await delay(2000);
             insertion_sort();
-            break;  
+            break;
+        
+        case `merge`:
+            merge_sort(0,arrCount-1);
+            break;    
     }
 }
 
@@ -402,6 +403,62 @@ async function insertion_sort(){
     return;
 }
 
+function merge_sort(s,e){
+    if(s>=e){
+        return;
+    }
+    let mid = parseInt((s+e)/2);
+    merge_sort(s,mid);
+    merge_sort(mid+1,e);
+
+    //Merge code...
+    let i = s;
+    let j = mid+1;
+    let k = s;
+    const temp = new Array(e+2);
+
+    while(i<=mid && j<=e){
+        arr[i].style.backgroundColor = `#fc9255`;       //Orange color..
+        arr[j].style.backgroundColor = `#fc9255`;
+        elemI = Number(arr[i].innerText);
+        elemJ = Number(arr[j].innerText);
+        if(elemI<=elemJ){
+            temp[k] = Number(arr[i].innerText);
+            i++;
+            k++;
+        }else{
+            temp[k] = Number(arr[j].innerText);
+            j++;
+            k++;
+        }
+        if(elemI<=elemJ){
+            arr[i-1].style.backgroundColor = `#B2F9FC`;       //Prev color..
+            console.log(j)
+            arr[j].style.backgroundColor = `#B2F9FC`;
+        }else{
+            arr[i].style.backgroundColor = `#B2F9FC`;       //Prev color..
+            arr[j-1].style.backgroundColor = `#B2F9FC`;
+        }
+    }
+
+    while(i<=mid){
+        temp[k++] = Number(arr[i++].innerText);
+    }
+
+    while(j<=e){
+        temp[k++] = Number(arr[j++].innerText);
+    }
+
+    for(let m=s;m<=e;m++){
+        arr[m].style.backgroundColor = `#40db62`;
+        arr[m].innerText = `${temp[m]}`;
+        arr[m].style.height = `${temp[m]-5}%`;
+        arr[m].style.backgroundColor = `#B2F9FC`; 
+    }
+    return;
+}
+
+
 const selectArr = [
     `    for( i = 0; i < n-1; i++ )`,
     `        min = i`,
@@ -461,6 +518,8 @@ let sidebarItems = document.querySelectorAll('.sidebar_item');
 sidebarItems[0].setAttribute('onclick','setSelection(`select`)');
 sidebarItems[1].setAttribute('onclick','setSelection(`bubble`)');
 sidebarItems[2].setAttribute('onclick','setSelection(`insert`)');
+sidebarItems[3].setAttribute('onclick','setSelection(`merge`)');
+
 
 /*Adding Onclick listener to each Button in Controls menu*/
 const controls = document.querySelectorAll('.arr_controls_item');
