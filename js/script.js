@@ -414,6 +414,7 @@ async function insertion_sort(){
 }
 
 async function merge(s,e,mid){
+    let iter = Number(stats_iterations.innerText);
     let i = s;
     let j = mid+1;
     let k = s;
@@ -421,6 +422,7 @@ async function merge(s,e,mid){
 
     ssCL[6].style.backgroundColor = `#fc9255`;
     while(i<=mid && j<=e){
+        stats_iterations.innerText = `${++iter}`;
         arr[i].style.backgroundColor = `#fc9255`;       //Orange color..
         arr[j].style.backgroundColor = `#fc9255`;
         elemI = Number(arr[i].innerText);
@@ -450,10 +452,12 @@ async function merge(s,e,mid){
     }
 
     while(i<=mid){
+        stats_iterations.innerText = `${++iter}`;
         temp[k++] = Number(arr[i++].innerText);
     }
 
     while(j<=e){
+        stats_iterations.innerText = `${++iter}`;
         temp[k++] = Number(arr[j++].innerText);
     }
 
@@ -465,6 +469,7 @@ async function merge(s,e,mid){
 
     ssCL[6].style.backgroundColor = `#40db62`;
     for(let m=s;m<=e;m++){
+        stats_iterations.innerText = `${++iter}`;
         arr[m].style.backgroundColor = `#40db62`;
         await delay(200+slowDownRate);
         arr[m].innerText = `${temp[m]}`;
