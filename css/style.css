@@ -174,14 +174,17 @@ ul li a{
 }
 
 .arr_element{
-    width:5.5%;
-    margin-right:3px;
+    width:4.5%;
+    margin-right:2px;
     box-shadow: 1px 0px 10px #888787;
     background-color: #B2F9FC;
     border:1px solid black;
     height:2px;
+    white-space: nowrap;
+    overflow:hidden;
     transition: all 0.9s ease,height 0.9s ease, background-color 0.2s ease;
 }
+
 
 .arr_controls{
     white-space: nowrap;

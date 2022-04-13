@@ -1,6 +1,7 @@
 //Global Variables
 let isDrawn = false;
-let arrCount = 16;
+let arrCount = 40;
+
 let currentSidebarItem = null;
 let currentClearState = false;       //This too seems useless, could have used isDrawn for the same
 let currentExecutionState = true;
@@ -90,6 +91,9 @@ function clearArray(){
 
 // Clears the Old Array & Generates a new one
 function randomizeArray(){
+    if(currentSidebarItem == null){
+        return;
+    }
     if(isDrawn){
         clearArray();
     }
@@ -98,7 +102,7 @@ function randomizeArray(){
         let newDiv = document.createElement("div");
         let value = randomGen();
         newDiv.className = "arr_element";
-        newDiv.innerText = String(value);
+        newDiv.innerHTML = `<span class="hidden">${String(value)}</span>`;
         ac.appendChild(newDiv);
     }
     //Sets the drawn state to true
@@ -117,14 +121,19 @@ function clearContainerText(){
 }
 
 async function stats_handler(){
+    if(currentSidebarItem == null){
+        return;
+    }
     stats_elements.innerText = `${arrCount}`;
     await delay(400);
     stats_iterations.innerText = '0';
     stats_swaps.innerText = '0';
     stats_speed.innerText = `${slowDownRate}`;
 }
+
 // Selects an specific algorithm when selected from the Sidebar, Also controls the Display of Index for Both Algorithms
 function setSelection(algo){
+    console.log("lolo ",algo);
     currentSidebarItem = algo;
     clearContainerText();
     randomizeArray();
@@ -149,7 +158,6 @@ function setSelection(algo){
     if(algo=="insert"){
         setTitle(`Insertion Sort`);
         slowDownRate = 30;
-        // document.querySelector(".bubble").style.display = "block";
     }else{
         // document.querySelector(".bubble").style.display = "none";
     }
@@ -164,6 +172,9 @@ function setSelection(algo){
 
 // Runs whenever Play Button is Pressed - Executes the algorithm selected from the SideBar...
 async function sort_now(){
+    if(currentSidebarItem == null){
+        return;
+    }
     cd.style.transform = `translate(-${cdOffset})`;
     await delay(2000);
     switch(currentSidebarItem){
@@ -189,6 +200,9 @@ async function sort_now(){
 /* Simply sets the currentExecutionState to false for 1 sec
    so that all the loops in sorting algos break & return */
 async function stop_exe(){
+    if(currentSidebarItem == null){
+        return;
+    }
     if(currentExecutionState){
         currentExecutionState = false;
     }
@@ -199,12 +213,18 @@ async function stop_exe(){
 
 // Increments SlowDownRate so that the delay Increases
 function slow_down(){
+    if(currentSidebarItem == null){
+        return;
+    }
     slowDownRate+=50;
     stats_speed.innerText = `${slowDownRate}`;
 }
 
 // Decrements SlowDownRate so that the delay decreases
 function fast_forward(){
+    if(currentSidebarItem == null){
+        return;
+    }
     slowDownRate-=50;
     stats_speed.innerText = `${slowDownRate}`;
 }
@@ -269,6 +289,7 @@ async function selection_sort(desc){
 
         }
         ssCL[5].style.backgroundColor = `#40db62`
+        await delay(550+slowDownRate);
         let swaps = parseInt(stats_swaps.innerText);
         stats_swaps.innerText = `${++swaps}`;
         let temp = arr[i].innerHTML;
@@ -276,7 +297,6 @@ async function selection_sort(desc){
         arr[minIndex].innerHTML = temp;
         arr[i].style.height = `${minElement-5}%`;
         arr[minIndex].style.height = `${temp-5}%`;
-        await delay(500);
         ssCL[5].style.backgroundColor = `#ffffff`
         arr[i].style.backgroundColor = prevColor;
         arr[minIndex].style.backgroundColor = prevColor;
@@ -321,7 +341,8 @@ async function bubble_sort(){
             ssCL[4].style.backgroundColor= `#ffffff`;
             if(Number(arr[j].innerHTML)>arr[j+1].innerHTML){
                 ssCL[5].style.backgroundColor= `#40db62`;
-                arr[j].style.backgroundColor = `#40db62`;             //jth bar to green....
+                arr[j].style.backgroundColor = `#40db62`;
+                await delay(500);             //jth bar to green....
                 arr[j+1].style.backgroundColor = `#fc9255`;           //j+1th bar to orange...
                 let swaps = parseInt(stats_swaps.innerText);
                 stats_swaps.innerText = `${++swaps}`;
@@ -397,6 +418,7 @@ async function insertion_sort(){
         }
         ssCL[6].style.backgroundColor = `#40db62`;
         stats_swaps.innerText = `${++swaps}`;
+        await delay(200);
         arr[j+1].innerText = key;
         arr[j+1].style.backgroundColor = `#40db62`;
         arr[j+1].style.height = `${key-5}%`;
@@ -438,11 +460,11 @@ async function merge(s,e,mid){
         }
 
         if(elemI<=elemJ){
-            await delay(220+slowDownRate);
+            await delay(250+slowDownRate);
             arr[i-1].style.backgroundColor = `#B2F9FC`;       //Prev color..
             arr[j].style.backgroundColor = `#B2F9FC`;
         }else{
-            await delay(220+slowDownRate);
+            await delay(250+slowDownRate);
             arr[i].style.backgroundColor = `#B2F9FC`;       //Prev color..
             arr[j-1].style.backgroundColor = `#B2F9FC`;
         }
@@ -471,7 +493,7 @@ async function merge(s,e,mid){
     for(let m=s;m<=e;m++){
         stats_iterations.innerText = `${++iter}`;
         arr[m].style.backgroundColor = `#40db62`;
-        await delay(200+slowDownRate);
+        await delay(250+slowDownRate);
         arr[m].innerText = `${temp[m]}`;
         arr[m].style.height = `${temp[m]-5}%`;
         arr[m].style.backgroundColor = `#B2F9FC`;
