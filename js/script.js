@@ -1,6 +1,6 @@
 //Global Variables
 let isDrawn = false;
-let arrCount = 40;
+let arrCount = 20;
 
 let currentSidebarItem = null;
 let currentClearState = false;       //This too seems useless, could have used isDrawn for the same
@@ -31,7 +31,7 @@ if(!currentClearState){
 // Sets Name of the Algorithm...
 function setTitle(title){
     let targ = document.getElementById("algo_name");
-    targ.innerHTML = `${title} Algorithm`;
+    targ.innerText = `${title} Algorithm`;
 }
 
 // Generates delay for specified millisecs
@@ -133,7 +133,6 @@ async function stats_handler(){
 
 // Selects an specific algorithm when selected from the Sidebar, Also controls the Display of Index for Both Algorithms
 function setSelection(algo){
-    console.log("lolo ",algo);
     currentSidebarItem = algo;
     clearContainerText();
     randomizeArray();
@@ -250,7 +249,7 @@ async function selection_sort(desc){
         ssCL[0].style.backgroundColor= `#ffffff`;             
         ssCL[1].style.backgroundColor= `#B2F9FC`;
         let minIndex = i;
-        let currElement = Number(arr[i].innerHTML);
+        let currElement = Number(arr[i].innerText);
         let minElement = currElement;
         await delay(200);
         arr[i].style.backgroundColor = `#40db62`;           //ith bar to green 
@@ -263,7 +262,7 @@ async function selection_sort(desc){
             ssCL[2].style.backgroundColor= `#ffffff`;
             ssCL[3].style.backgroundColor= `#a778ce`;
             await delay(50);
-            let jthElement = Number(arr[j].innerHTML);
+            let jthElement = Number(arr[j].innerText);
             arr[j].style.backgroundColor = `#a778ce`;          //jth bar to purple
             if(minIndex!=i){
                 arr[minIndex].style.backgroundColor = `#fc9255`;     //min element to orange
@@ -292,9 +291,9 @@ async function selection_sort(desc){
         await delay(550+slowDownRate);
         let swaps = parseInt(stats_swaps.innerText);
         stats_swaps.innerText = `${++swaps}`;
-        let temp = arr[i].innerHTML;
-        arr[i].innerHTML = minElement;
-        arr[minIndex].innerHTML = temp;
+        let temp = arr[i].innerText;
+        arr[i].innerText = minElement;
+        arr[minIndex].innerText = temp;
         arr[i].style.height = `${minElement-5}%`;
         arr[minIndex].style.height = `${temp-5}%`;
         ssCL[5].style.backgroundColor = `#ffffff`
@@ -339,19 +338,19 @@ async function bubble_sort(){
             ssCL[4].style.backgroundColor= `#B2F9FC`;
             await delay(100+slowDownRate);
             ssCL[4].style.backgroundColor= `#ffffff`;
-            if(Number(arr[j].innerHTML)>arr[j+1].innerHTML){
+            if(Number(arr[j].innerText)>Number(arr[j+1].innerText)){
                 ssCL[5].style.backgroundColor= `#40db62`;
                 arr[j].style.backgroundColor = `#40db62`;
                 await delay(500);             //jth bar to green....
                 arr[j+1].style.backgroundColor = `#fc9255`;           //j+1th bar to orange...
                 let swaps = parseInt(stats_swaps.innerText);
                 stats_swaps.innerText = `${++swaps}`;
-                let temp = arr[j].innerHTML;
-                arr[j].innerHTML = arr[j+1].innerHTML;
-                arr[j+1].innerHTML = temp;
+                let temp = arr[j].innerText;
+                arr[j].innerText = arr[j+1].innerText;
+                arr[j+1].innerText = temp;
                 await delay(200+slowDownRate);
-                arr[j].style.height = `${Number(arr[j].innerHTML)-5}%`;
-                arr[j+1].style.height = `${Number(arr[j+1].innerHTML)-5}%`;
+                arr[j].style.height = `${Number(arr[j].innerText)-5}%`;
+                arr[j+1].style.height = `${Number(arr[j+1].innerText)-5}%`;
                 wasSwapped = true;
                 ssCL[5].style.backgroundColor= `#ffffff`;
             }
