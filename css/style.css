@@ -247,7 +247,7 @@ main{
     clear:both;
     position:absolute;
     width:340px;
-    font-size:1.0rem;
+    font-size:1.05rem;
     z-index:2;
     right:-340px;
     bottom:200px;
@@ -288,6 +288,7 @@ main{
     right:5px;
     padding:3px;
     border-radius: 5px;
+    font-size: 0.90rem;
     /* display:none; */
 }
 

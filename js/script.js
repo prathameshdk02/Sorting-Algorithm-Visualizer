@@ -209,6 +209,7 @@ async function sort_now(){
         
         case `merge`:
             adC.innerText = `Playing Merge-Sort...`;
+            await delay(500);
             merge_sort(0,arrCount-1);
             break;    
     }
