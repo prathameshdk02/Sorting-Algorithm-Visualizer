@@ -10,10 +10,6 @@
     list-style-type: none;
 }
 
-/* div{
-    border: 1px solid red;
-} */
-
 body{
     overflow:hidden;
 }
@@ -174,7 +170,7 @@ ul li a{
 }
 
 .arr_element{
-    width:4.5%;
+    width:4.6%;
     margin-right:2px;
     box-shadow: 1px 0px 10px #888787;
     background-color: #B2F9FC;
@@ -204,7 +200,7 @@ ul li a{
 
 .arr_controls:hover{
     width:160px;
-    height:269px;
+    height:315px;
 }
 
 .arr_controls_icon{
@@ -245,6 +241,22 @@ main{
     color:#101e7b;
 }
 
+/* Addon Display */
+.addon_disp{
+    float:right;
+    clear:both;
+    position:absolute;
+    width:340px;
+    font-size:1.0rem;
+    z-index:2;
+    right:-340px;
+    bottom:200px;
+    background-color:#101e7b;
+    color:white;
+    transition: all 1.5s ease;
+    padding:5px;
+}
+
 /* CSS for Code Display */
 .code_disp_outer{
     position:absolute;
@@ -257,12 +269,11 @@ main{
     background-color:#091353;
     border-radius:10px;
     transition: all 1.5s ease;
-    padding:3px;
+    padding:6px;
     /* box-shadow: -1px 1px 100px 5px white; */
 }
 
 .code_disp_container{
-    margin:6px;
     padding:5px;
     background-color:white;
 }
