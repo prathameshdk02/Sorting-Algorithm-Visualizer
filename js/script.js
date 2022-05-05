@@ -1,9 +1,9 @@
 //Global Variables
 let isDrawn = false;
-let arrCount = 20;
+let arrCount = 25;
 
 let currentSidebarItem = null;
-let currentClearState = false;       //This too seems useless, could have used isDrawn for the same
+let currentClearState = false;       
 let currentExecutionState = true;
 let currentRunStatus = false;
 let slowDownRate = 0;
@@ -16,7 +16,6 @@ const adC = document.getElementById("addon_display");
 const cd = document.querySelector(".code_disp_outer");
 const cdc = document.querySelector(".code_disp_container");
 const ssCL = document.getElementsByClassName("code_disp_line");
-
 
 // Stat References
 const stats_elements = document.getElementById("stats_elements");
@@ -45,7 +44,6 @@ function delay(ms){
     return new Promise((resolve) =>{
         setTimeout(()=>{
             resolve();
-            // console.log("Waiting now...")
         },ms);
     });
 }
@@ -105,7 +103,7 @@ function randomizeArray(){
         let newDiv = document.createElement("div");
         let value = randomGen();
         newDiv.className = "arr_element";
-        newDiv.innerHTML = `<span class="hidden">${String(value)}</span>`;
+        newDiv.innerText = `${String(value)}`;
         ac.appendChild(newDiv);
     }
     //Sets the drawn state to true
@@ -148,9 +146,23 @@ function setSelection(algo){
     randomizeArray();
     addContentCodeDisp(algo);
     
+    if(arrCount>40 && currentSidebarItem!=null){
+        ac.style.fontSize = '0px';
+        console.log(arr);
+        Array.from(arr).forEach((element)=>{
+            element.style.margin = '0px';
+            element.style.boxShadow = '0px 0px 0px 0px';
+            element.style.border = '1px solid black';
+        })
+    }
+
     if(algo=="select"){
         setTitle(`Selection Sort`);
-        slowDownRate = -50;
+        if(arrCount<=40){
+            slowDownRate = -50;
+        }else{
+            slowDownRate = -200;
+        }
         document.querySelector(".select").style.display = "block";
     }else{
         document.querySelector(".select").style.display = "none";
@@ -158,7 +170,11 @@ function setSelection(algo){
     
     if(algo=="bubble"){
         setTitle(`Bubble Sort`);
-        slowDownRate = 50;
+        if(arrCount<=40){
+            slowDownRate = 50;
+        }else{
+            slowDownRate = -200;
+        }
         document.querySelector(".bubble").style.display = "block";
     }else{
         document.querySelector(".bubble").style.display = "none";
@@ -166,14 +182,20 @@ function setSelection(algo){
     
     if(algo=="insert"){
         setTitle(`Insertion Sort`);
-        slowDownRate = 30;
-    }else{
-        // document.querySelector(".bubble").style.display = "none";
+        if(arrCount<=40){
+            slowDownRate = 30;
+        }else{
+            slowDownRate = -100;
+        }    
     }
     
     if(algo=="merge"){
         setTitle(`Merge Sort`);
-        slowDownRate = 20;
+        if(arrCount<=40){
+            slowDownRate = 20;
+        }else{
+            slowDownRate = -180;
+        }
     }
     stats_handler();
     currentRunStatus = false;
@@ -194,6 +216,7 @@ async function sort_now(){
     cd.style.transform = `translate(-${cdOffset})`;
 
     await delay(1300);
+
     switch(currentSidebarItem){
         case `select`:
             selection_sort();
@@ -583,12 +606,12 @@ async function merge(s,e,mid){
 async function sorted_effect(){
     for(let i=0;i<arrCount;i++){
         arr[i].style.backgroundColor = '#40db62';       //Green
-        await delay(10);
+        await delay(5);
     }
     await delay(10);
     for(let i=0;i<arrCount;i++){
         arr[i].style.backgroundColor = `#B2F9FC`;
-        await delay(10);       
+        await delay(5);       
     }
 }
 
@@ -754,6 +777,8 @@ sidebarItems[0].setAttribute('onclick','setSelection(`select`)');
 sidebarItems[1].setAttribute('onclick','setSelection(`bubble`)');
 sidebarItems[2].setAttribute('onclick','setSelection(`insert`)');
 sidebarItems[3].setAttribute('onclick','setSelection(`merge`)');
+// sidebarItems[4].
+
 
 
 /*Adding Onclick listener to each Button in Controls menu*/
